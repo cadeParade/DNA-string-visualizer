@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNA</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+  <script src="dat.js"></script>
+</head>
+<body>
+  <script>
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 2000 - margin.left - margin.right,
+    height = 3000 - margin.top - margin.bottom;
+
+var red = "#E74C3C",
+    green = "#1ABC9C",
+    blue = "#3498DB",
+    black = "#7F8C8D";
+
+var color = {A: green, C: blue, T: red, G: black};
+
+var dirs = {A: "up", C: "down", T: "left", G: "right"};
+
+
+var sequence = "AATTCCGGACTGATCGTGCA"
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("background-color", "#2C3E50");
+
+var prevX = 70;
+var prevY = height - 10;
+var xyChange = 10;
+
+
+var circs = svg.selectAll()
+    .data(dat)
+  .enter().append("circle")
+    .attr("cy", function(d, i) {
+        if(dirs[d] == "up") {
+          newY = prevY + xyChange;
+          prevY = newY;
+          console.log('A, up', newY)
+          return newY;
+        }
+        else if(dirs[d] == "down") {
+          newY = prevY - xyChange;
+          prevY = newY;
+          console.log('C, down', newY)
+          return newY;
+        }
+        else { return prevY }
+      }) // y center pos
+    .attr("cx", function(d, i) {
+        if (dirs[d] == "right") {
+          newX = prevX + xyChange;
+          prevX = newX;
+          console.log('T, right', newX)
+          return newX
+        }
+        else if (dirs[d] == "left") {
+          newX = prevX - xyChange;
+          prevX = newX;
+          console.log('G, left', newX)
+          return newX
+        }
+        else { return prevX }
+        return i * 8; }) //x center pos
+    .attr("r", function(d, i) { console.log(d); return 4; }) // radius
+    .style("fill", function(d) { return color[d]});
+
+  </script>
+</body>
+</html>
