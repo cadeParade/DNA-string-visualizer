@@ -41,13 +41,11 @@ var circs = svg.selectAll()
         if(dirs[d] == "up") {
           newY = prevY + xyChange;
           prevY = newY;
-          console.log('A, up', newY)
           return newY;
         }
         else if(dirs[d] == "down") {
           newY = prevY - xyChange;
           prevY = newY;
-          console.log('C, down', newY)
           return newY;
         }
         else { return prevY }
@@ -56,18 +54,16 @@ var circs = svg.selectAll()
         if (dirs[d] == "right") {
           newX = prevX + xyChange;
           prevX = newX;
-          console.log('T, right', newX)
           return newX
         }
         else if (dirs[d] == "left") {
           newX = prevX - xyChange;
           prevX = newX;
-          console.log('G, left', newX)
           return newX
         }
         else { return prevX }
         return i * 8; }) //x center pos
-    .attr("r", function(d, i) { console.log(d); return 4; }) // radius
+    .attr("r", function(d, i) { return 4; }) // radius
     .style("fill", function(d) { return color[d]});
 
   </script>
